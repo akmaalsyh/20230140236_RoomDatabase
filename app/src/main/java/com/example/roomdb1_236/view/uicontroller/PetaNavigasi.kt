@@ -1,4 +1,4 @@
-package com.example.myroomsatu.view.uicontroller // Sesuaikan dengan package di gambar
+package com.example.roomdb1_236.view.uicontroller
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier

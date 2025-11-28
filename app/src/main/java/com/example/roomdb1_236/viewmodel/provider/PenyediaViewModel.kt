@@ -5,6 +5,7 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.roomdb1_236.repositori.AplikasiSiswa
+import com.example.roomdb1_236.repositori.RepositoriSiswa
 import com.example.roomdb1_236.viewmodel.EntryViewModel
 import com.example.roomdb1_236.viewmodel.HomeViewModel
 
@@ -13,11 +14,11 @@ object PenyediaViewModel {
     val Factory = viewModelFactory {
 
         initializer {
-            HomeViewModel(repositoriSiswa = aplikasiSiswa().container.repositoriSiswa)
+            HomeViewModel(repositoriSiswa = aplikasiSiswa().containerApp.repositoriSiswa)
         }
 
         initializer {
-            EntryViewModel(repositoriSiswa = aplikasiSiswa().container.repositoriSiswa)
+            EntryViewModel(repositoriSiswa = aplikasiSiswa().containerApp.repositoriSiswa)
         }
     }
 }
