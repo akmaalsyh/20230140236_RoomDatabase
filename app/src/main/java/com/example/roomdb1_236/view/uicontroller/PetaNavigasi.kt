@@ -1,37 +1,40 @@
-package com.example.roomdb1_236.view.uicontroller
+package com.example.myroomsatu.view.uicontroller // Sesuaikan dengan package di gambar
 
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.roomdb1_236.view.EntrySiswaScreen
+import com.example.roomdb1_236.view.HomeScreen
 import com.example.roomdb1_236.view.route.DestinasiEntry
 import com.example.roomdb1_236.view.route.DestinasiHome
-import java.lang.reflect.Modifier
 
 @Composable
-fun SiswaApp(navController: NavHostController = rememberNavController(), modifier: androidx.compose.ui.Modifier) {
+fun SiswaApp(navController: NavHostController = rememberNavController(), modifier: Modifier = Modifier) {
     HostNavigasi(navController = navController)
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HostNavigasi(
     navController: NavHostController,
     modifier: Modifier = Modifier
 ) {
     NavHost(
-        navController = navController, startDestination = DestinasiHome.route,
+        navController = navController,
+        startDestination = DestinasiHome.route,
         modifier = Modifier
     ) {
-        composable(DestinasiHome.route) {
+        composable(route = DestinasiHome.route) {
             HomeScreen(
-                navigateToItemEntry = { navController.navigate(DestinasiEntry.route) }
+                navigateToItemEntry = { navController.navigate(route = DestinasiEntry.route) }
             )
         }
-        composable(DestinasiEntry.route) {
-            EntrySiswaScreen(navigateBack = { navController.popBackStack() })
+        composable(route = DestinasiEntry.route) {
+            EntrySiswaScreen(
+                navigateBack = { navController.popBackStack() }
+            )
         }
-
     }
 }

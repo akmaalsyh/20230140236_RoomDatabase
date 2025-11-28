@@ -23,9 +23,14 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.roomdb1_236.view.route.DestinasiEntry
 import kotlinx.coroutines.launch
 import com.example.roomdb1_236.R
+import com.example.roomdb1_236.viewmodel.DetailSiswa
+import com.example.roomdb1_236.viewmodel.EntryViewModel
+import com.example.roomdb1_236.viewmodel.UIStateSiswa
+import com.example.roomdb1_236.viewmodel.provider.PenyediaViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
