@@ -30,6 +30,7 @@ object PenyediaViewModel {
                 repositoriSiswa = aplikasiSiswa().containerApp.repositoriSiswa
             )
         }
+
     }
 }
 
