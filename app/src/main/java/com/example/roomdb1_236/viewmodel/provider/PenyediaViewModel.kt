@@ -6,8 +6,10 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.roomdb1_236.repositori.AplikasiSiswa
+import com.example.roomdb1_236.viewmodel.DetailViewModel
 import com.example.roomdb1_236.viewmodel.EntryViewModel
 import com.example.roomdb1_236.viewmodel.HomeViewModel
+
 
 object PenyediaViewModel {
 
@@ -23,7 +25,10 @@ object PenyediaViewModel {
 
         // edit : tambah initializer untuk DetailViewModel dan editviewmodel
         initializer {
-            DetailViewModel(savedStateHandle = this.createSavedStateHandle(), repositoriSiswa = aplikasiSiswa().containerApp.repositoriSiswa)
+            DetailViewModel(
+                savedStateHandle = this.createSavedStateHandle(),
+                repositoriSiswa = aplikasiSiswa().containerApp.repositoriSiswa
+            )
         }
     }
 }

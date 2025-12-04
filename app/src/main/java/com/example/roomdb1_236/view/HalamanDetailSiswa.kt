@@ -23,6 +23,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
@@ -35,8 +36,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.roomdb1_236.R
 import com.example.roomdb1_236.room.Siswa
+import com.example.roomdb1_236.view.route.DestinasiDetailSiswa
+import com.example.roomdb1_236.viewmodel.DetailSiswaUiState
+import com.example.roomdb1_236.viewmodel.DetailViewModel
 import com.example.roomdb1_236.viewmodel.provider.PenyediaViewModel
+import com.example.roomdb1_236.viewmodel.toSiswa
 import kotlinx.coroutines.launch
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

@@ -7,6 +7,8 @@ import kotlinx.coroutines.flow.Flow
 interface RepositoriSiswa {
     fun getAllSiswaStream(): Flow<List<Siswa>>
     suspend fun insertSiswa(siswa: Siswa)
+    fun deleteSiswa(toSiswa: Siswa) {}
+    fun getSiswaStream(idSiswa: Int) {}
 }
 
 class OfflineRepositoriSiswa(
