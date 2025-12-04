@@ -47,42 +47,45 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailSiswaScreen(
-    navigateBack: () -> Unit,
     navigateToEditItem: (Int) -> Unit,
+    navigateBack: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: DetailViewModel = viewModel(factory = PenyediaViewModel.Factory)
 ) {
+    val uiState = viewModel.uiDetailState.collectAsState()
+
     Scaffold(
         topBar = {
             SiswaTopAppBar(
-                title = stringResource(DestinasiDetailSiswa.titleRes),
+                title = stringResource(R.string.detail_siswa),
                 canNavigateBack = true,
                 navigateUp = navigateBack
             )
         },
         floatingActionButton = {
-            val uiState = viewModel.uiDetailState.collectAsState()
             FloatingActionButton(
                 onClick = { navigateToEditItem(uiState.value.detailSiswa.id) },
                 shape = MaterialTheme.shapes.medium,
                 modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_large))
-
             ) {
                 Icon(
                     imageVector = Icons.Default.Edit,
                     contentDescription = stringResource(R.string.update),
                 )
             }
-        }, modifier = modifier
+        },
+        modifier = modifier
     ) { innerPadding ->
-        val uiState = viewModel.uiDetailState.collectAsState()
         val coroutineScope = rememberCoroutineScope()
+
         BodyDetailDataSiswa(
             detailSiswaUiState = uiState.value,
-            onDelete = { coroutineScope.launch {
-                viewModel.deleteSiswa()
-                navigateBack()
-            }},
+            onDelete = {
+                coroutineScope.launch {
+                    viewModel.deleteSiswa()
+                    navigateBack()
+                }
+            },
             modifier = Modifier
                 .padding(innerPadding)
                 .verticalScroll(rememberScrollState())
@@ -96,11 +99,12 @@ private fun BodyDetailDataSiswa(
     onDelete: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    var deleteConfirmationRequired by rememberSaveable { mutableStateOf(false) }
+
     Column(
         modifier = modifier.padding(dimensionResource(id = R.dimen.padding_medium)),
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_medium))
     ) {
-        var deleteConfirmationRequired by rememberSaveable { mutableStateOf(false) }
 
         DetailDataSiswa(
             siswa = detailSiswaUiState.detailSiswa.toSiswa(),
@@ -114,6 +118,7 @@ private fun BodyDetailDataSiswa(
         ) {
             Text(stringResource(R.string.delete))
         }
+
         if (deleteConfirmationRequired) {
             DeleteConfirmationDialog(
                 onDeleteConfirm = {
@@ -129,10 +134,12 @@ private fun BodyDetailDataSiswa(
 
 @Composable
 fun DetailDataSiswa(
-    siswa: Siswa, modifier: Modifier = Modifier
+    siswa: Siswa,
+    modifier: Modifier = Modifier
 ) {
     Card(
-        modifier = modifier, colors = CardDefaults.cardColors(
+        modifier = modifier,
+        colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer,
             contentColor = MaterialTheme.colorScheme.onPrimaryContainer
         )
@@ -143,46 +150,32 @@ fun DetailDataSiswa(
                 .padding(dimensionResource(id = R.dimen.padding_medium)),
             verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_medium))
         ) {
+
             BarisDetailData(
                 labelResID = R.string.nama1,
-                itemDetail = siswa.nama,
-                modifier = Modifier.padding(
-                    horizontal = dimensionResource(
-                        id = R.dimen
-                            .padding_medium
-                    )
-                )
+                itemDetail = siswa.nama
             )
+
             BarisDetailData(
                 labelResID = R.string.alamat1,
-                itemDetail = siswa.alamat,
-                modifier = Modifier.padding(
-                    horizontal = dimensionResource(
-                        id = R.dimen
-                            .padding_medium
-                    )
-                )
+                itemDetail = siswa.alamat
             )
+
             BarisDetailData(
                 labelResID = R.string.telpon1,
-                itemDetail = siswa.telpon,
-                modifier = Modifier.padding(
-                    horizontal = dimensionResource(
-                        id = R.dimen
-                            .padding_medium
-                    )
-                )
+                itemDetail = siswa.telpon
             )
         }
-
     }
 }
 
 @Composable
 private fun BarisDetailData(
-    @StringRes labelResID: Int, itemDetail: String, modifier: Modifier = Modifier
+    @StringRes labelResID: Int,
+    itemDetail: String,
+    modifier: Modifier = Modifier
 ) {
-    Row(modifier = modifier) {
+    Row(modifier = modifier.fillMaxWidth()) {
         Text(stringResource(labelResID))
         Spacer(modifier = Modifier.weight(1f))
         Text(text = itemDetail, fontWeight = FontWeight.Bold)
@@ -195,7 +188,8 @@ private fun DeleteConfirmationDialog(
     onDeleteCancel: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    AlertDialog(onDismissRequest = { /* Do nothing */ },
+    AlertDialog(
+        onDismissRequest = { },
         title = { Text(stringResource(R.string.attention)) },
         text = { Text(stringResource(R.string.tanya)) },
         modifier = modifier,
@@ -208,5 +202,6 @@ private fun DeleteConfirmationDialog(
             TextButton(onClick = onDeleteConfirm) {
                 Text(stringResource(R.string.yes))
             }
-        })
+        }
+    )
 }
